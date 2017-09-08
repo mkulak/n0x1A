@@ -5,13 +5,25 @@ import org.junit.*
 import org.junit.Assert.*
 
 class StatsManagerImplTest {
+    val delta = 1e-7
+                                         ;
+    @Test
+    fun `should be able to return empty stat`() {
+        val statsManager = StatsManagerImpl(TestClock(0), 10)
+        statsManager.getStats().apply {
+            assertEquals(0, count)
+            assertEquals(0.0, sum, delta)
+            assertTrue(avg.isNaN())
+            assertTrue(max.isNaN())
+            assertTrue(min.isNaN())
+        }
+    }
+
     @Test
     fun `should calculate correct stat`() {
         val clock = TestClock(0)
         val windowSize: Long = 10
-
         val statsManager = StatsManagerImpl(clock, windowSize)
-        assertEquals(Stats(0.0, 0.0, 0.0, 0.0, 0), statsManager.getStats())
 
         statsManager.addTransaction(Transaction(1.0, 0))
         assertEquals(Stats(1.0, 1.0, 1.0, 1.0, 1), statsManager.getStats())
@@ -25,7 +37,7 @@ class StatsManagerImplTest {
         assertEquals(Stats(6.0, 2.0, 1.0, 3.0, 3), statsManager.getStats())
 
         clock.time = 10
-        statsManager.addTransaction(Transaction(20.0, 10))
-        assertEquals(Stats(25.0, 12.5, 2.0, 20.0, 3), statsManager.getStats())
+        statsManager.addTransaction(Transaction(19.0, 10))
+        assertEquals(Stats(24.0, 8.0, 2.0, 19.0, 3), statsManager.getStats())
     }
 }

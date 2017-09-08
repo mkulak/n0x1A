@@ -11,10 +11,20 @@ interface StatsManager {
 }
 
 class StatsManagerImpl(val clock: Clock, val windowSize: Long) : StatsManager {
+    val transactions = ArrayList<Transaction>()
+
     override fun addTransaction(transaction: Transaction) {
+        transactions += transaction
     }
 
     override fun getStats(): Stats {
-        return Stats(0.0, 0.0, 0.0, 0.0, 0)
+        val now = clock.now()
+        val actual = transactions.filter { it.timestamp + windowSize > now }.map { it.amount }
+        val sum = actual.sum()
+        val count = actual.size
+        val min = actual.min() ?: Double.NaN
+        val max = actual.max() ?: Double.NaN
+        val avg = if (count != 0) sum / count else Double.NaN
+        return Stats(sum, avg, min, max, count)
     }
 }
