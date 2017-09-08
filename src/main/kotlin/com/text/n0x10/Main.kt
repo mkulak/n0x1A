@@ -22,11 +22,11 @@ fun main(args: Array<String>) {
     router.post("/transactions").handler { ctx ->
         val transaction = Json.decodeValue(ctx.body, Transaction::class.java)
         println("received: $transaction")
-        statsManager.addTransaction(transaction)
+        statsManager.add(transaction)
         ctx.response().setStatusCode(201).end()
     }
     router.get("/statistics").handler { ctx ->
-        val stats = statsManager.getStats()
+        val stats = statsManager.get()
         ctx.response().setStatusCode(200).end(Json.encode(stats))
     }
 
