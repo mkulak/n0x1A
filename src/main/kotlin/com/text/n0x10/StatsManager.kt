@@ -10,9 +10,8 @@ interface StatsManager {
     fun getStats(): Stats
 }
 
-class StatsManagerImpl : StatsManager {
+class StatsManagerImpl(val clock: Clock, val windowSize: Long) : StatsManager {
     override fun addTransaction(transaction: Transaction) {
-
     }
 
     override fun getStats(): Stats {

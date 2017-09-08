@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
     
     Json.mapper.registerModule(KotlinModule())
 
-    val statsManager = StatsManagerImpl()
+    val statsManager = StatsManagerImpl(SystemClock(), 60000)
 
     val port = 8080
     val vertx = Vertx.vertx()
