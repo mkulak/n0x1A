@@ -3,7 +3,7 @@ package com.github.mkulak.n0x1A
 
 data class Transaction(val amount: Double, val timestamp: Long)
 
-data class Stats(val sum: Double, val avg : Double, val min: Double, val max: Double, val count: Int)
+data class Stats(val sum: Double, val avg: Double, val min: Double, val max: Double, val count: Int)
 
 interface StatsManager {
     fun add(transaction: Transaction)
@@ -23,8 +23,9 @@ class FastStatsManager(val clock: Clock, val windowSizeSeconds: Int) : StatsMana
         val newSecond = transaction.timestamp / MILLIS_IN_SECOND
         observeNewTime(newSecond)
         val timeDiff = (newSecond - lastSecond).coerceIn(-windowSizeSeconds.toLong(), 0).toInt()
-        if (timeDiff == -windowSizeSeconds) return
-        add(endIndex + timeDiff, transaction)
+        if (timeDiff > -windowSizeSeconds) {
+            add(endIndex + timeDiff, transaction)
+        }
     }
 
     override fun getStats(): Stats {
