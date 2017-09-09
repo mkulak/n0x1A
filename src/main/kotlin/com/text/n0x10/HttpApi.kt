@@ -22,7 +22,7 @@ class HttpApi(val statsManager: StatsManager) : AbstractVerticle() {
             ctx.response().setStatusCode(201).end()
         }
         router.get("/statistics").handler { ctx ->
-            val stats = statsManager.get()
+            val stats = statsManager.getStats()
             logger.debug("responded: $stats")
             ctx.response().setStatusCode(200).end(Json.encode(stats))
         }

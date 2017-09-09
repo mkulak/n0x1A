@@ -10,5 +10,5 @@ class TestStatsManager(val response: Stats) : StatsManager {
         received.set(transaction)
     }
 
-    override fun get(): Stats = response
+    override fun getStats(): Stats = response
 }
