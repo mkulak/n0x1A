@@ -1,10 +1,8 @@
 package com.github.mkulak.n0x1A
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import io.vertx.core.DeploymentOptions
 import io.vertx.core.Vertx
 import io.vertx.core.json.Json
-import io.vertx.core.json.JsonObject
 import io.vertx.ext.unit.TestContext
 import io.vertx.ext.unit.junit.VertxUnitRunner
 import io.vertx.ext.web.client.WebClient
@@ -23,8 +21,7 @@ class HttpApiTest {
     @Before
     fun setUp(context: TestContext) {
         Json.mapper.registerModule(KotlinModule())
-        val options = DeploymentOptions().setConfig(JsonObject().put("http.port", port))
-        vertx.deployVerticle(HttpApi(statsManager), options, context.asyncAssertSuccess())
+        vertx.deployVerticle(HttpApi(port, statsManager), context.asyncAssertSuccess())
     }
 
     @After

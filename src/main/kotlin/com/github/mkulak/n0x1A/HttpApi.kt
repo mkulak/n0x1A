@@ -8,7 +8,7 @@ import io.vertx.ext.web.handler.BodyHandler
 import org.slf4j.LoggerFactory
 
 
-class HttpApi(val statsManager: StatsManager) : AbstractVerticle() {
+class HttpApi(val port: Int, val statsManager: StatsManager) : AbstractVerticle() {
     val logger = LoggerFactory.getLogger(HttpApi::class.java)
 
     override fun start(future: Future<Void>) {
@@ -27,7 +27,6 @@ class HttpApi(val statsManager: StatsManager) : AbstractVerticle() {
             ctx.response().setStatusCode(200).end(Json.encode(stats))
         }
 
-        val port = config().getInteger("http.port", 8080)
         vertx.createHttpServer().requestHandler(router::accept).listen(port) {
             if (it.succeeded()) {
                 logger.info("Server started on $port")

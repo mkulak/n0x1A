@@ -1,0 +1,87 @@
+swagger: "2.0"
+info:
+  description: "Accumulates information about latest transactions and provides statistics"
+  version: "1.0.0"
+  title: "Transaction statistics service"
+  contact:
+    email: "kleshney@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/"
+schemes:
+- "http"
+paths:
+  /transactions:
+    post:
+      summary: "Adds information about transaction"
+      operationId: "addTransaction"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Transaction"
+      responses:
+        201:
+          description: "Accepted"
+
+  /statistics:
+    get:
+      summary: "Returns statistics about current transactions"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "getStatistics"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Statistics response"
+          schema:
+            $ref: "#/definitions/Stats"
+
+definitions:
+  Transaction:
+    type: "object"
+    properties:
+      amount:
+        type: "number"
+        format: "double"
+      timestamp:
+        type: "integer"
+        format: "int64"
+    required:
+      - amount
+      - timestamp
+
+  Stats:
+    type: "object"
+    properties:
+      sum:
+        type: "number"
+        description: "Sum of transactions' amount in observable interval"
+        format: "double"
+      avg:
+        type: "number"
+        description: "Average of transactions' amount in observable interval"
+        format: "double"
+      min:
+        type: "number"
+        description: "Minimum transaction amount in observable interval"
+        format: "double"
+      max:
+        type: "number"
+        description: "Maximum transaction amount in observable interval"
+        format: "double"
+      count:
+        type: "integer"
+        description: "Count of transactions in observable interval"
+        format: "int32"
+    required:
+      - sum
+      - avg
+      - min
+      - max
+      - count
+

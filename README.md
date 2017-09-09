@@ -1,6 +1,8 @@
-Transaction statistics server
+Transaction statistics service
 =
-Web server that accumulates information about latest transactions and provides statistical info  
+REST service that accumulates information about latest transactions and provides statistics.
+
+[API spec](repo/blob/master/src/main/resources/api.yaml)  
 
 How to build
 -
@@ -18,6 +20,10 @@ or build and then execute:
 
 ```
 java -jar build/libs/stat-server.jar
+``` 
+You can specify port like this: 
+```
+java -jar build/libs/stat-server.jar 9090
 ``` 
 
 How to test manually
@@ -56,6 +62,12 @@ to that it becomes `[time of event - window size, time of event)`
  when it's needed. We can save some memory by allowing mutations and pre-allocating array of cells
  but this will make code less readable and is not worth it (unless real life requirements show otherwise).
 
+Missing things
+-
+* Integration test
+* Config
+* Docker
+
 Time spent
 -
-~5 hours
+~6 hours

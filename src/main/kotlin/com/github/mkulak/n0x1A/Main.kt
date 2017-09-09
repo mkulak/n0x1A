@@ -8,7 +8,9 @@ fun main(args: Array<String>) {
     Json.mapper.registerModule(KotlinModule())
 
     val statsManager = StatsManagerImpl(SystemClock(), 60000)
-    val api = HttpApi(statsManager)
+
+    val port = args.firstOrNull()?.toIntOrNull() ?: 8080
+    val api = HttpApi(port, statsManager)
 
     val vertx = Vertx.vertx()
     vertx.deployVerticle(api) { if (it.failed()) vertx.close() }
