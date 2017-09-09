@@ -1,4 +1,4 @@
-package com.text.n0x10
+package com.github.mkulak.n0x1A
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.vertx.core.DeploymentOptions

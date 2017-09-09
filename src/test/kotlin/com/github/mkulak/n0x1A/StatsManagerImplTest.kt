@@ -1,4 +1,4 @@
-package com.text.n0x10
+package com.github.mkulak.n0x1A
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
