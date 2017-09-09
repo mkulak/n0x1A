@@ -4,11 +4,21 @@ Web server that accumulates information about latest transactions and provides s
 
 How to build
 -
-Run `./gradlew clean build`
+Execute `./gradlew clean build`
 
 How to run
 -
-Run `./gradlew run`
+Execute 
+
+```
+./gradlew run
+```
+
+or build and then execute:
+
+```
+java -jar build/libs/stat-server.jar
+``` 
 
 How to test manually
 -
