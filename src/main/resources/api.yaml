@@ -31,7 +31,6 @@ paths:
   /statistics:
     get:
       summary: "Returns statistics about current transactions"
-      description: "Multiple status values can be provided with comma separated strings"
       operationId: "getStatistics"
       produces:
       - "application/json"

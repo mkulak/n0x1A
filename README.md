@@ -60,7 +60,7 @@ This means system will consider that every event is happening at the beginning o
 to that it becomes `[time of event - window size, time of event)`   
 * It's a conscious decision to make class `Cell` immutable and allocate new object each time 
  when it's needed. We can save some memory by allowing mutations and pre-allocating array of cells
- but this will make code less readable and is not worth it (unless real life requirements show otherwise).
+ but this will make code less readable and is not worth it (unless profiling proves otherwise).
 
 Missing things
 -
