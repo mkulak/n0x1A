@@ -1,6 +1,7 @@
 package com.github.mkulak.n0x1A
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.github.mkulak.n0x1A.mocks.MockStatsManager
 import io.vertx.core.Vertx
 import io.vertx.core.json.Json
 import io.vertx.ext.unit.TestContext
@@ -16,7 +17,7 @@ class HttpApiTest {
     val vertx = Vertx.vertx()
     val client = WebClient.create(vertx)
     val port = getRandomFreePort()
-    val statsManager = TestStatsManager(Stats(100.0, 11.0, -1.0, 99.0, 4))
+    val statsManager = MockStatsManager(Stats(100.0, 11.0, -1.0, 99.0, 4))
 
     @Before
     fun setUp(context: TestContext) {

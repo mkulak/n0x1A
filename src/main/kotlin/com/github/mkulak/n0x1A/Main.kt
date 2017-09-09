@@ -7,7 +7,7 @@ import io.vertx.core.json.Json
 fun main(args: Array<String>) {
     Json.mapper.registerModule(KotlinModule())
 
-    val statsManager = StatsManagerImpl(SystemClock(), 60000)
+    val statsManager = FastStatsManager(SystemClock(), 60000)
 
     val port = args.firstOrNull()?.toIntOrNull() ?: 8080
     val api = HttpApi(port, statsManager)

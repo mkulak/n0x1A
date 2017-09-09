@@ -10,7 +10,7 @@ interface StatsManager {
     fun getStats(): Stats
 }
 
-class StatsManagerImpl(val clock: Clock, val windowSizeSeconds: Int) : StatsManager {
+class FastStatsManager(val clock: Clock, val windowSizeSeconds: Int) : StatsManager {
     private val MILLIS_IN_SECOND = 1000
     private val emptyCell = Cell(Double.MAX_VALUE, Double.MIN_VALUE, 0.0, 0)
     private val emptyStats = Stats(0.0, Double.NaN, Double.NaN, Double.NaN, 0)
@@ -67,23 +67,4 @@ class StatsManagerImpl(val clock: Clock, val windowSizeSeconds: Int) : StatsMana
     private infix fun Int.modulo(m: Int): Int = this.rem(m).let { if (it < 0) it + m else it }
 
     private data class Cell(val min: Double, val max: Double, val sum: Double, val count: Int)
-}
-
-class DumbStatsManager(val clock: Clock, val windowSize: Long) : StatsManager {
-    val transactions = ArrayList<Transaction>()
-
-    override fun add(transaction: Transaction) {
-        transactions += transaction
-    }
-
-    override fun getStats(): Stats {
-        val now = clock.now()
-        val actual = transactions.filter { it.timestamp + windowSize > now }.map { it.amount }
-        val sum = actual.sum()
-        val count = actual.size
-        val min = actual.min() ?: Double.NaN
-        val max = actual.max() ?: Double.NaN
-        val avg = if (count != 0) sum / count else Double.NaN
-        return Stats(sum, avg, min, max, count)
-    }
 }
