@@ -2,7 +2,7 @@ Transaction statistics service
 =
 REST service that accumulates information about latest transactions and provides statistics.
 
-[API spec](repo/blob/master/src/main/resources/api.yaml)  
+[API spec](src/main/resources/api.yaml)  
 
 How to build
 -
